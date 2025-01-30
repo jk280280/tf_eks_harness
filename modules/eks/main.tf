@@ -3,13 +3,18 @@ data "aws_vpc" "default" {
   default = true
 }
 
-# Fetch subnets of the default VPC
+# Fetch subnets of the default VPC in specific availability zones
 data "aws_subnets" "default" {
   filter {
     name   = "vpc-id"
     values = [data.aws_vpc.default.id]
   }
+  filter {
+    name   = "availability-zone"
+    values = ["us-east-1a", "us-east-1b", "us-east-1c"]
+  }
 }
+
 
 resource "aws_eks_cluster" "this" {
   name     = var.cluster_name

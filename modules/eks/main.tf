@@ -8,10 +8,6 @@ resource "aws_eks_cluster" "this" {
   name     = var.cluster_name
   role_arn  = aws_iam_role.eks.arn
   version   = "1.31"
-
-  vpc_config {
-    subnet_ids = data.aws_subnets.default.ids
-  }
 }
 
 resource "aws_eks_node_group" "this" {

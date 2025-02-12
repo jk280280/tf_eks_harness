@@ -1,18 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: flask-app
+  name: python-app-deployment
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: flask-app
+      app: python-app
   template:
     metadata:
       labels:
-        app: flask-app
+        app: python-app
     spec:
       containers:
-      - name: flask-app
-        image: nginx
-       
+        - name: python-app
+          image: 650251703160.dkr.ecr.us-east-1.amazonaws.com/harness/python_app
+          ports:
+            - containerPort: 3460
+
+

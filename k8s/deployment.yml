@@ -1,21 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: python-app-deployment
+  name: harness-deployment
+  labels:
+    app: harness
 spec:
-  replicas: 1
+  replicas: 2  # Number of replicas for the pod (adjust as necessary)
   selector:
     matchLabels:
-      app: python-app
+      app: harness
   template:
     metadata:
       labels:
-        app: python-app
+        app: harness
     spec:
       containers:
-        - name: python-app
-          image: 650251703160.dkr.ecr.us-east-1.amazonaws.com/harness/python_app
-          ports:
-            - containerPort: 3460
-
+      - name: harness
+        image: 650251703160.dkr.ecr.us-east-1.amazonaws.com/harness/python_app
+        imagePullPolicy: Always  # Always pull the latest image
+        ports:
+        - containerPort: 80  # Adjust the container port if necessary
 

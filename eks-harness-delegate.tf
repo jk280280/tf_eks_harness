@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "us-east-1"
+  region = "us-west-1"
 }
 
 data "aws_eks_cluster" "eks_cluster" {

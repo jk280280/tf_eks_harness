@@ -23,11 +23,11 @@ resource "kubernetes_namespace" "harness_delegate" {
 resource "null_resource" "install_delegate" {
   depends_on = [kubernetes_namespace.harness_delegate]
 
-  provisioner "local-exec" {
-    command = <<EOT
-      wget https://app.harness.io/public/shared/delegates/install-kubernetes-delegate.sh -O install-delegate.sh
-      chmod +x install-delegate.sh
-      ./install-delegate.sh --accountId axO8S93qRGqqf1tlBaonnQ --delegateToken OWYyNDYzMjVlODVkZTJlY2RiZmFlZjM2NmEzMDk3N2Y= --namespace harness-delegate
-    EOT
+  provisioner "remote-exec" {
+    inline = [
+      "curl -o install-delegate.sh https://app.harness.io/public/shared/delegates/install-kubernetes-delegate.sh",
+      "chmod +x install-delegate.sh",
+      "./install-delegate.sh --accountId axO8S93qRGqqf1tlBaonnQ --delegateToken OWYyNDYzMjVlODVkZTJlY2RiZmFlZjM2NmEzMDk3N2Y= --namespace harness-delegate"
+    ]
   }
 }

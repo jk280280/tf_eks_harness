@@ -11,7 +11,7 @@ data "aws_subnets" "default" {
   }
   filter {
     name   = "availability-zone"
-    values = ["us-east-1a", "us-east-1b", "us-east-1c"]
+    values = ["us-west-1a", "us-west-1b", "us-west-1c"]
   }
 }
 

@@ -1,7 +1,3 @@
-provider "aws" {
-  region = "us-west-1"
-}
-
 data "aws_eks_cluster" "eks_cluster" {
   name = "my-eks-cluster"
 }

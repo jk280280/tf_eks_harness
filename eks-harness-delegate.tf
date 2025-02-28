@@ -1,9 +1,9 @@
 data "aws_eks_cluster" "eks_cluster" {
-  name = aws_eks_cluster.eks_cluster.name
+  name = aws_eks_cluster.this.name
 }
 
 data "aws_eks_cluster_auth" "eks_auth" {
-  name = aws_eks_cluster.eks_cluster.name
+  name = aws_eks_cluster.this.name
 }
 
 provider "kubernetes" {

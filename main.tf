@@ -34,6 +34,23 @@ provider "helm" {
   }
 }
 
+resource "helm_release" "delegate" {
+  name       = "harness-delegate"
+  namespace  = kubernetes_namespace.harness_delegate.metadata[0].name
+  repository = "https://harness.github.io/helm-delegate"
+  chart      = "harness-delegate"
+
+  set {
+    name  = "delegateName"
+    value = "terraform-delegate"
+  }
+
+  timeout = 600  # Timeout set to 10 minutes
+
+  depends_on = [kubernetes_namespace.harness_delegate]
+}
+
+
 # Create Harness Delegate Namespace
 resource "kubernetes_namespace" "harness_delegate" {
   metadata {

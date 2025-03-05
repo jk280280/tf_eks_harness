@@ -54,6 +54,7 @@ module "delegate" {
   delegate_image  = "650251703160.dkr.ecr.us-east-1.amazonaws.com/harness-delegate-ansible"
   replicas        = 1
   upgrader_enabled = true
+  timeout         = 600
 
   depends_on = [module.eks, kubernetes_namespace.harness_delegate]
 }

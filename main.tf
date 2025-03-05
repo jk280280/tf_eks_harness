@@ -51,7 +51,7 @@ module "delegate" {
   deploy_mode     = "KUBERNETES"
   namespace       = kubernetes_namespace.harness_delegate.metadata[0].name
   manager_endpoint = "https://app.harness.io"
-  delegate_image  = "harness/delegate:25.02.85300"
+  delegate_image  = "650251703160.dkr.ecr.us-east-1.amazonaws.com/harness-delegate-ansible"
   replicas        = 1
   upgrader_enabled = true
 

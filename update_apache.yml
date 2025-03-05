@@ -1,0 +1,9 @@
+---
+- name: Update Apache Web Server
+  hosts: web_servers
+  become: yes
+  tasks:
+    - name: Install Apache
+      apt:
+        name: "{{ apache_version }}"
+        state: present

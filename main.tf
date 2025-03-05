@@ -11,12 +11,12 @@ module "eks" {
 
 # Fetch EKS cluster details dynamically
 data "aws_eks_cluster" "eks" {
-  name = module.eks.cluster_name
+  name      = module.eks.cluster_name
   depends_on = [module.eks]
 }
 
 data "aws_eks_cluster_auth" "eks_auth" {
-  name = module.eks.cluster_name
+  name      = module.eks.cluster_name
   depends_on = [module.eks]
 }
 
@@ -37,7 +37,7 @@ provider "helm" {
 resource "helm_release" "delegate" {
   name       = "harness-delegate"
   namespace  = kubernetes_namespace.harness_delegate.metadata[0].name
-  repository = "https://harness.github.io/helm-delegate"
+  repository = "https://app.harness.io/storage/harness-download/delegate-helm-chart/" 
   chart      = "harness-delegate"
 
   set {
@@ -45,32 +45,12 @@ resource "helm_release" "delegate" {
     value = "terraform-delegate"
   }
 
-  timeout = 600  # Timeout set to 10 minutes
-
   depends_on = [kubernetes_namespace.harness_delegate]
 }
-
 
 # Create Harness Delegate Namespace
 resource "kubernetes_namespace" "harness_delegate" {
   metadata {
     name = "harness-delegate-ng"
   }
-}
-
-module "delegate" {
-  source          = "harness/harness-delegate/kubernetes"
-  version         = "0.1.8"
-
-  account_id      = "axO8S93qRGqqf1tlBaonnQ"
-  delegate_token  = "OWYyNDYzMjVlODVkZTJlY2RiZmFlZjM2NmEzMDk3N2Y="
-  delegate_name   = "terraform-delegate"
-  deploy_mode     = "KUBERNETES"
-  namespace       = kubernetes_namespace.harness_delegate.metadata[0].name
-  manager_endpoint = "https://app.harness.io"
-  delegate_image  = "650251703160.dkr.ecr.us-east-1.amazonaws.com/harness-delegate-ansible"
-  replicas        = 1
-  upgrader_enabled = true
-  
-  depends_on = [module.eks, kubernetes_namespace.harness_delegate]
 }

@@ -24,16 +24,14 @@ provider "kubernetes" {
   host                   = data.aws_eks_cluster.eks.endpoint
   token                  = data.aws_eks_cluster_auth.eks_auth.token
   cluster_ca_certificate = base64decode(data.aws_eks_cluster.eks.certificate_authority[0].data)
-  depends_on = [module.eks]
-}
+  }
 
 provider "helm" {
   kubernetes {
     host                   = data.aws_eks_cluster.eks.endpoint
     token                  = data.aws_eks_cluster_auth.eks_auth.token
     cluster_ca_certificate = base64decode(data.aws_eks_cluster.eks.certificate_authority[0].data)
-    depends_on = [module.eks]
-  }
+    }
 }
 
 resource "helm_release" "delegate" {

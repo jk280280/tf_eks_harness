@@ -11,12 +11,12 @@ module "eks" {
 
 # Fetch EKS cluster details dynamically
 data "aws_eks_cluster" "eks" {
-  name = module.eks.cluster_name
+  name      = module.eks.cluster_name
   depends_on = [module.eks]
 }
 
 data "aws_eks_cluster_auth" "eks_auth" {
-  name = module.eks.cluster_name
+  name      = module.eks.cluster_name
   depends_on = [module.eks]
 }
 
@@ -49,7 +49,7 @@ module "delegate" {
   delegate_token  = "OWYyNDYzMjVlODVkZTJlY2RiZmFlZjM2NmEzMDk3N2Y="
   delegate_name   = "terraform-delegate"
   deploy_mode     = "KUBERNETES"
-  namespace  = kubernetes_namespace.harness_delegate.metadata[0].name
+  namespace       = kubernetes_namespace.harness_delegate.metadata[0].name
   manager_endpoint = "https://app.harness.io"
   delegate_image  = "harness/delegate:25.02.85300"
   replicas        = 1

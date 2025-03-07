@@ -37,7 +37,7 @@ provider "helm" {
 # Create Harness Delegate Namespace
 resource "kubernetes_namespace" "harness_delegate" {
   metadata {
-    name = "harness-delegate-ng"
+    name = "harness-delegate"
   }
 }
 

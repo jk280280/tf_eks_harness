@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: harness
-        image: 650251703160.dkr.ecr.us-east-1.amazonaws.com/harness/promotional_pipeline
+        image: 650251703160.dkr.ecr.us-east-1.amazonaws.com/harness-delegate-ansible
         imagePullPolicy: Always  # Always pull the latest image
         ports:
         - containerPort: 80  # Adjust the container port if necessary
